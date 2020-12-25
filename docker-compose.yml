@@ -1,0 +1,28 @@
+version: '3'
+
+services: 
+  python:
+    build: 
+      context: .
+      dockerfile: docker/python/Dockerfile
+    # image: python:3.4
+    command: python manage.py runserver 0.0.0.0:8000 
+    # command: sleep 5000
+    volumes:
+      - ./app:/app
+    ports: 
+      - 8000:8000
+  postgres: # THIS NAME TO BE USED AS HOST IN SETTINGS.PY
+    image: postgres:9.6
+    environment: 
+      POSTGRES_USER: tickets
+      POSTGRES_PASSWORD: tickets
+      POSTGRES_DB: tickets
+    volumes: 
+      - pgdata:/var/lib/postgresql/data
+    ports: 
+      - 5432:5432
+
+volumes: 
+  pgdata:
+  app:

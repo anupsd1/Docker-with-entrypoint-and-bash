@@ -10,6 +10,7 @@ services:
     # command: sleep 5000
     volumes:
       - ./app:/app
+      - static_files:/static_files/
     ports: 
       - 8000:8000
   postgres: # THIS NAME TO BE USED AS HOST IN SETTINGS.PY
@@ -26,5 +27,12 @@ services:
     build:
       context: .
       dockerfile: docker/prod/nginx/Dockerfile
+    volumes:
+      - static_files:/static_files/
     ports: 
-      - 80:80
+      - 8080:80
+
+volumes: 
+  pgdata:
+  app:
+  static_files:

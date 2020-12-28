@@ -7,7 +7,7 @@ WORKDIR /app
 
 RUN pip install -r requirements/prod.txt
 
-COPY ./docker/prod/python/entrypoint.sh /entrypoint.sh
+COPY ./docker/prod/python/entrypoint2.sh /entrypoint.sh
 
 # To give permission for entrypoint.sh in the docker container
 # Initially mentioned by tutorial:

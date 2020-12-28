@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 
 # check who owns the working directory. By default it was coming to 0 which was owned by root. So I've used the number 1000 to assign on line 16
@@ -11,7 +11,7 @@ id root
 
 
 
-# set the python run uid to the user id we just retrieved
+# set the python run uid to the user id 
 PYTHON_RUN_UID=${PYTHON_RUN_UID:=1000}
 # I've assigned a customer uid above which is not actually the default owner of the working directory.
 PYTHON_RUN_USER=${PYTHON_RUN_USER:=py_user}
@@ -66,3 +66,4 @@ echo "Running command '$*'"
 
 # To run as the user just created:
 exec su -p ${PYTHON_RUN_USER} -s /bin/bash -c "$*"
+

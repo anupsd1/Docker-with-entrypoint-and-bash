@@ -5,12 +5,14 @@ services:
     build: 
       context: .
       dockerfile: docker/prod/python/Dockerfile
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings.prod
     # image: python:3.4
     command: gunicorn -w 4 core.wsgi -b 0.0.0.0:8000
     # command: sleep 5000
     volumes:
       - ./app:/app
-      - static_files:/static_files/
+      - static_files:/static_files/ # the python container is collecting the static files and storing in this directory
     ports: 
       - 8000:8000
   postgres: # THIS NAME TO BE USED AS HOST IN SETTINGS.PY
@@ -28,7 +30,7 @@ services:
       context: .
       dockerfile: docker/prod/nginx/Dockerfile
     volumes:
-      - static_files:/static_files/
+      - static_files:/static_files/ # The nginx server is serving static files from this directory
     ports: 
       - 8080:80
 

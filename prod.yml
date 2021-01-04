@@ -15,6 +15,10 @@ services:
       - static_files:/static_files/ # the python container is collecting the static files and storing in this directory
     ports: 
       - 8000:8000
+    depends_on:
+      - postgres
+      - rabbitmq
+      # - nginx
   postgres: # THIS NAME TO BE USED AS HOST IN SETTINGS.PY
     image: postgres:9.6
     environment: 
@@ -33,6 +37,12 @@ services:
       - static_files:/static_files/ # The nginx server is serving static files from this directory
     ports: 
       - 8080:80
+    depends_on:
+      - python
+  # rabbit message que
+  rabbitmq:
+    image: rabbitmq:3.7-alpine
+
 
 volumes: 
   pgdata:

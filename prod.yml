@@ -1,7 +1,7 @@
 version: '3'
 
 services: 
-  python:
+  python: &python
     build: 
       context: .
       dockerfile: docker/prod/python/Dockerfile
@@ -18,6 +18,7 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+      - celery_worker
       # - nginx
   postgres: # THIS NAME TO BE USED AS HOST IN SETTINGS.PY
     image: postgres:9.6
@@ -42,6 +43,15 @@ services:
   # rabbit message que
   rabbitmq:
     image: rabbitmq:3.7-alpine
+  #celery worker service
+  celery_worker:
+    <<: *python
+    command: celery -A core worker --loglevel=info
+    ports: []
+    depends_on:
+      - rabbitmq
+      - postgres
+
 
 
 volumes: 

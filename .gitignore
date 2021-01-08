@@ -5,3 +5,4 @@ app/ticket/__pycache__/
 app/core/settings/
 app/ticket/migrations/__pycache__/*
 app/core/debug.log
+.env
